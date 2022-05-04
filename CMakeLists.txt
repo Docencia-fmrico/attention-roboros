@@ -24,6 +24,9 @@ set(dependencies
 add_executable(move_head src/move_head.cpp)
 ament_target_dependencies(move_head ${dependencies})
 
+add_executable(attention_main src/attention_main.cpp)
+ament_target_dependencies(attention_main ${dependencies})
+
 
 
 #install(DIRECTORY launch pddl DESTINATION share/${PROJECT_NAME})
@@ -31,6 +34,7 @@ install(DIRECTORY DESTINATION share/${PROJECT_NAME})
 
 install(TARGETS
 move_head
+attention_main
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
