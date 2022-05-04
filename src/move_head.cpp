@@ -21,15 +21,13 @@
 using namespace std::chrono_literals;
 
 
-
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
 
   auto node = rclcpp::Node::make_shared("simple_node_pub");
   auto publisher = node->create_publisher<trajectory_msgs::msg::JointTrajectory>(
-    "/head_controller/joint_trajectory", 10);
-  
+    "/head_controller/joint_trajectory", 100);
   int counter = 0;
   rclcpp::Rate loop_rate(500ms);
   trajectory_msgs::msg::JointTrajectory message;
@@ -37,7 +35,6 @@ int main(int argc, char * argv[])
   message.header.frame_id = "head_1_link";
   message.header.stamp = now();
   message.joint_names = {"head_1_joint", "head_2_joint"};
-  
   trajectory_msgs::msg::JointTrajectoryPoint points;
   points.positions = {(float)1.0, (float)1.5};
   points.velocities = {(float)0.1, (float)0.1};
@@ -46,44 +43,31 @@ int main(int argc, char * argv[])
   points.time_from_start = rclcpp::Duration(1s);
   message.points = {points};
   */
-  message.header.frame_id = "base_link";
+  message.header.frame_id = "";
   std_msgs::msg::Float64 m;
   message.header.stamp = node->now();
   message.joint_names = {"head_1_joint", "head_2_joint"};
-  message.points.resize(2);
+  message.points.resize(1);
   message.points[0].positions.resize(2);
   message.points[0].accelerations.resize(2);
   message.points[0].velocities.resize(2);
-  message.points[0].positions[0] = 0.3;
-  message.points[0].positions[1] = 1.0;
+  message.points[0].effort.resize(2);
+  message.points[0].positions[0] = -0.2;
+  message.points[0].positions[1] = -0.8;
   message.points[0].velocities[0] = 0.1;
   message.points[0].velocities[1] = 0.1;
   message.points[0].accelerations[0] = 0.1;
   message.points[0].accelerations[1] = 0.1;
+  message.points[0].effort[0] = 0.1;
+  message.points[0].effort[1] = 0.1;
   message.points[0].time_from_start = rclcpp::Duration(1s);
 
-  message.points[1].positions.resize(2);
-  message.points[1].accelerations.resize(2);
-  message.points[1].velocities.resize(2);
-  message.points[1].positions[0] = 1.3;
-  message.points[1].positions[1] = 0.2;
-  message.points[1].velocities[0] = 1.0;
-  message.points[1].velocities[1] = 1.0;
-  message.points[1].accelerations[0] = 1.1;
-  message.points[1].accelerations[1] = 1.1;
-  message.points[1].time_from_start = rclcpp::Duration(5s);
-
   while (rclcpp::ok()) {
-    
-    RCLCPP_INFO(node->get_logger(), "Publishing []" );
-
+    RCLCPP_INFO(node->get_logger(), "Publishing []");
     publisher->publish(message);
-
     rclcpp::spin_some(node);
     loop_rate.sleep();
   }
-    
   rclcpp::shutdown();
-
   return 0;
 }
