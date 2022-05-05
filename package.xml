@@ -15,6 +15,9 @@
   <depend>plansys2_executor</depend>
   <depend>trajectory_msgs</depend>
   <depend>std_msgs</depend>
+  <depend>ros2_knowledge_graph</depend>
+  <depend>gazebo_msgs</depend>
+
 
   <exec_depend>plansys2_bringup</exec_depend>
   <exec_depend>plansys2_terminal</exec_depend>

@@ -9,7 +9,7 @@ class NeckController : public rclcpp::Node
 {
 
     public:
-        NeckController() : Node("gazebo_graph") {
+        NeckController() : Node("neck_controller") {
             auto publisher_ = this->create_publisher<trajectory_msgs::msg::JointTrajectory>(
             "/head_controller/joint_trajectory", 10);
         }

@@ -10,6 +10,7 @@ find_package(plansys2_executor REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(ros2_knowledge_graph REQUIRED)
+find_package(gazebo_msgs REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -21,6 +22,7 @@ set(dependencies
     trajectory_msgs
     std_msgs
     ros2_knowledge_graph
+    gazebo_msgs
 )
 
 add_executable(move_head src/move_head.cpp)
