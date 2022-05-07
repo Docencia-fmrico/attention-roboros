@@ -16,6 +16,8 @@
   <depend>trajectory_msgs</depend>
   <depend>std_msgs</depend>
   <depend>ros2_knowledge_graph</depend>
+  <depend>ros2_knowledge_graph_msgs</depend>
+  <depend>ros2_knowledge_graph_terminal</depend>
   <depend>gazebo_msgs</depend>
 
 
