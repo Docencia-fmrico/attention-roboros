@@ -74,6 +74,9 @@ public:
     dist = sqrt( pow(robot_pose.position.x-obj_pose.position.x,2) + pow(robot_pose.position.y-obj_pose.position.y,2));
     
     std::cout << "dist:" <<dist << std::endl;
+    if (dist > 5){
+      return;
+    }
 
   cv::Mat robot_mat(3,3, CV_32F, cv::Scalar(0));
 
@@ -117,7 +120,7 @@ public:
       message.points[0].positions.resize(2);
       message.points[0].accelerations.resize(2);
       message.points[0].velocities.resize(2);
-      message.points[0].positions[0] = atan2(object_mat.at<float>(0,0),object_mat.at<float>(1,0));
+      message.points[0].positions[0] = atan2(object_mat.at<float>(0,0),object_mat.at<float>(1,0)) + 0.9;
       std::cout << atan2(object_mat.at<float>(0,0),object_mat.at<float>(1,0)) << std::endl;
       message.points[0].positions[1] = 0.0;
       message.points[0].velocities[0] = 0.1;
