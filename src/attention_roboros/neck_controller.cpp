@@ -33,9 +33,7 @@ class NeckController : public rclcpp::Node
 public:
     NeckController() : rclcpp::Node("neck_controller") {
         auto publisher_ = create_publisher<trajectory_msgs::msg::JointTrajectory>(
-        "/head_controller/joint_trajectory", 10);
-        graph_ = std::make_shared<ros2_knowledge_graph::GraphNode>("neck_controller");
-        //graph_->start();    
+        "/head_controller/joint_trajectory", 10);   
     }
 
     void doWork()
@@ -62,8 +60,7 @@ public:
     }
 
 private:
-    rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr publisher_;
-    std::shared_ptr<ros2_knowledge_graph::GraphNode> graph_;        
+    rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr publisher_;  
 };
 
 int main(int argc, char* argv[]){

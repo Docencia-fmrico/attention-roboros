@@ -12,7 +12,7 @@
 #include "ros2_knowledge_graph/GraphNode.hpp"
 
 
-class GazeboGraph
+class GraphClient
 {
 
     public:
@@ -22,7 +22,7 @@ class GazeboGraph
             auto node = ros2_knowledge_graph::new_node(name, type);
             graph_->update_node(node);
 
-            std::cout << "Nodo añadido: " << name << "\n";
+            //std::cout << "Nodo añadido: " << name << "\n";
 
         }
 
@@ -43,29 +43,18 @@ class GazeboGraph
             }
 
             graph_->update_edge(edge);
-            std::cout << "Edge añadido entre " << source << "y" << target << "\n";
+            //std::cout << "Edge añadido entre " << source << "y" << target << "\n";
 
         }
 
         void remove_node(std::string source)
         {          
             if (!graph_->remove_node(source)) {
-                std::cout << "No pudo remover node: "<<source<< "\n";
+                //std::cout << "No pudo remover node: "<<source<< "\n";
             }
         }
 
-        /*void remove_edges(std::string source,std::string target)
-        {          
-            //borra todos los edges que salen de source a target
-            std::vector<ros2_knowledge_graph_msgs::msg::Edge> edge_vector = graph_->get_edges( &source, &target);
-            for(int i=0; i < edge_vector.size(); i++){
-
-                if (!graph_->remove_edge(edge_vector[i])) {
-                    std::cout << "No pudo remover edge de: " << source << "y" << target << "\n";
-                }
-
-            }
-        }*/
+    
 
     
     private:

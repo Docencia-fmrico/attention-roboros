@@ -1,11 +1,11 @@
 #include "rclcpp/rclcpp.hpp"
 
-#include "attention_roboros/GazeboGraph.cpp"
+#include "attention_roboros/GraphClient.cpp"
 
 int main(int argc, char ** argv)
 {
     rclcpp::init(argc, argv);
-    GazeboGraph grafo;
+    GraphClient grafo;
     grafo.add_node("Pepe","Mesa");
     grafo.add_node("Rober","Mesa");
     grafo.add_node("Andres","Mesa");
