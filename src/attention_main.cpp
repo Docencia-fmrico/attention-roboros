@@ -21,6 +21,9 @@ int main(int argc, char ** argv)
     node->add_edge("Andres","Pepe","int","44");
     node->add_edge("Pepe","Andres","int","55");
     node->print_graph();
+    int numero=node->get_edge_int("Pepe","Andres");
+
+    RCLCPP_INFO(node->get_logger(), std::to_string(numero));
 
     //rclcpp::spin(node_neck);
     //auto node_neck = std::make_shared<NeckController>();
