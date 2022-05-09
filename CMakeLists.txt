@@ -42,8 +42,9 @@ ament_target_dependencies(attention_main ${dependencies})
 install(DIRECTORY DESTINATION share/${PROJECT_NAME})
 
 install(TARGETS
-move_head
-attention_main
+  move_head
+  attention_main
+
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
