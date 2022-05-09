@@ -10,6 +10,9 @@ find_package(plansys2_executor REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(gazebo_msgs REQUIRED)
+find_package(ros2_knowledge_graph_msgs REQUIRED)
+find_package(ros2_knowledge_graph REQUIRED)
+find_package(OpenCV REQUIRED)
 
 
 set(CMAKE_CXX_STANDARD 17)
@@ -22,15 +25,20 @@ set(dependencies
     trajectory_msgs
     std_msgs
     gazebo_msgs
+    ros2_knowledge_graph_msgs
+    ros2_knowledge_graph
+    OpenCV
 )
 
 add_executable(get_gazebo src/gazebo_subscriber.cpp)
 ament_target_dependencies(get_gazebo ${dependencies})
-)
+
 
 add_executable(move_head src/move_head.cpp)
 ament_target_dependencies(move_head ${dependencies})
 
+add_executable(neck_controller src/neck_controller.cpp)
+ament_target_dependencies(neck_controller ${dependencies})
 
 
 #install(DIRECTORY launch pddl DESTINATION share/${PROJECT_NAME})
@@ -38,7 +46,8 @@ install(DIRECTORY DESTINATION share/${PROJECT_NAME})
 
 install(TARGETS
   get_gazebo
-move_head
+  move_head
+  neck_controller
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
