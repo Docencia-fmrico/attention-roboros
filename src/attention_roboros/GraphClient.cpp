@@ -23,7 +23,7 @@ class GraphClient : public rclcpp::Node
             //graph_= std::make_shared<ros2_knowledge_graph::GraphNode>(node);
         }
 
-        void crear_garfo(){
+        void create_graf(){
             graph_= std::make_shared<ros2_knowledge_graph::GraphNode>(shared_from_this());
         }
 
@@ -78,8 +78,14 @@ class GraphClient : public rclcpp::Node
             RCLCPP_INFO(this->get_logger(), "-----------EDGES----------  \n");
             std::vector<ros2_knowledge_graph_msgs::msg::Edge> edges_vector=graph_->get_edges();
             
-            for(auto V : edges_vector){
+            /*for(auto V : edges_vector){
                 int num = (ros2_knowledge_graph::get_content<int>(V.content)).value();
+
+                RCLCPP_INFO(this->get_logger(), "%s-%s %d  \n",(V.source_node_id).c_str(),(V.target_node_id).c_str(),num );
+            }*/
+
+            for(auto V : edges_vector){
+                bool num = (ros2_knowledge_graph::get_content<bool>(V.content)).value_or(0);
 
                 RCLCPP_INFO(this->get_logger(), "%s-%s %d  \n",(V.source_node_id).c_str(),(V.target_node_id).c_str(),num );
             }
@@ -100,11 +106,21 @@ class GraphClient : public rclcpp::Node
             return -1;
         }
 
+        bool get_edge_bool(std::string source,std::string target){
+            std::vector<ros2_knowledge_graph_msgs::msg::Edge> edges_vector=graph_->get_edges();
 
 
-    
+            for(auto V : edges_vector){
+                if((V.source_node_id).c_str()==source && (V.target_node_id).c_str()==target){
+                    bool value = (ros2_knowledge_graph::get_content<bool>(V.content)).value();
+                    return value;
+                }
+            }
 
-    
+            return false;
+        }
+
+
     private:
         std::shared_ptr<ros2_knowledge_graph::GraphNode> graph_;
 };
