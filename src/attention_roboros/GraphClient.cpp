@@ -12,10 +12,20 @@
 #include "ros2_knowledge_graph/GraphNode.hpp"
 
 
-class GraphClient
+#include "ros2_knowledge_graph/GraphNode.hpp"
+
+class GraphClient : public rclcpp::Node
 {
 
     public:
+        GraphClient()  : Node("graph_client") {
+            //auto node = rclcpp::Node::make_shared("simple");
+            //graph_= std::make_shared<ros2_knowledge_graph::GraphNode>(node);
+        }
+
+        void crear_garfo(){
+            graph_= std::make_shared<ros2_knowledge_graph::GraphNode>(shared_from_this());
+        }
 
         void add_node(std::string name,std::string type){
 
@@ -25,6 +35,7 @@ class GraphClient
             //std::cout << "Nodo añadido: " << name << "\n";
 
         }
+        
 
         void add_edge(std::string source,std::string target,std::string type,std::string content)
         {          
@@ -52,6 +63,20 @@ class GraphClient
             if (!graph_->remove_node(source)) {
                 //std::cout << "No pudo remover node: "<<source<< "\n";
             }
+        }
+
+
+        //std::string source,std::string target,std::string
+        int get_value_from_edge(){
+            std::vector<ros2_knowledge_graph_msgs::msg::Edge> edges_vector=graph_->get_edges();
+            
+            for(auto V : edges_vector){
+                int num = (ros2_knowledge_graph::get_content<int>(V.content)).value();
+                RCLCPP_INFO(this->get_logger(), "%d \n",num );
+            }
+            
+            
+            return 1;
         }
 
     

@@ -1,14 +1,28 @@
 #include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
+#include "iostream"
 
 #include "attention_roboros/GraphClient.cpp"
+
 
 int main(int argc, char ** argv)
 {
     rclcpp::init(argc, argv);
-    GraphClient grafo;
-    grafo.add_node("Pepe","Mesa");
-    grafo.add_node("Rober","Mesa");
-    grafo.add_node("Andres","Mesa");
+    auto node = std::make_shared<GraphClient>();
+    node->crear_garfo();
+
+    //RCLCPP_INFO(node->get_logger(), "Hola" );
+    
+    node->add_node("Pepe","Mesa");
+    node->add_node("Andres","Mesa");
+    node->add_edge("Pepe","Andres","int","11");
+    node->add_edge("Andres","Pepe","int","22");
+    node->add_edge("Pepe","Andres","int","33");
+    node->add_edge("Andres","Pepe","int","44");
+    node->add_edge("Pepe","Andres","int","55");
+    int ana= node->get_value_from_edge();
+
+    RCLCPP_INFO(node->get_logger(), "%d \n",ana );
     //rclcpp::spin(node_neck);
     //auto node_neck = std::make_shared<NeckController>();
     //rclcpp::spin(node_neck);
