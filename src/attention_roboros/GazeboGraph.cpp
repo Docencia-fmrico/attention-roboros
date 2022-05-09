@@ -26,10 +26,21 @@ class GazeboGraph
 
         }
 
-        void add_edge(std::string source,std::string target,std::string type)
+        void add_edge(std::string source,std::string target,std::string type,std::string content)
         {          
+            ros2_knowledge_graph_msgs::msg::Edge edge;
 
-            auto edge = ros2_knowledge_graph::new_edge(source, target, type);
+            if (type == "bool") {
+                edge = ros2_knowledge_graph::new_edge<bool>(source, target, content == "true");
+            } else if (type == "int") {
+                edge = ros2_knowledge_graph::new_edge<int>(source, target, atoi(content.c_str()));
+            } else if (type == "float") {
+                edge = ros2_knowledge_graph::new_edge<float>(source, target, atof(content.c_str()));
+            } else if (type == "double") {
+                edge = ros2_knowledge_graph::new_edge<double>(source, target, atof(content.c_str()));
+            } else if (type == "string") {
+                edge = ros2_knowledge_graph::new_edge<std::string>(source, target, content);
+            }
 
             graph_->update_edge(edge);
             std::cout << "Edge añadido entre " << source << "y" << target << "\n";
@@ -39,9 +50,22 @@ class GazeboGraph
         void remove_node(std::string source)
         {          
             if (!graph_->remove_node(source)) {
-                std::cout << "No pudo remover edge: "<<source<< "\n";
+                std::cout << "No pudo remover node: "<<source<< "\n";
             }
         }
+
+        /*void remove_edges(std::string source,std::string target)
+        {          
+            //borra todos los edges que salen de source a target
+            std::vector<ros2_knowledge_graph_msgs::msg::Edge> edge_vector = graph_->get_edges( &source, &target);
+            for(int i=0; i < edge_vector.size(); i++){
+
+                if (!graph_->remove_edge(edge_vector[i])) {
+                    std::cout << "No pudo remover edge de: " << source << "y" << target << "\n";
+                }
+
+            }
+        }*/
 
     
     private:

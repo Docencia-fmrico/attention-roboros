@@ -5,7 +5,10 @@
 int main(int argc, char ** argv)
 {
     rclcpp::init(argc, argv);
-    auto node_neck = std::make_shared<GazeboGraph>();
+    GazeboGraph grafo;
+    grafo.add_node("Pepe","Mesa");
+    grafo.add_node("Rober","Mesa");
+    grafo.add_node("Andres","Mesa");
     //rclcpp::spin(node_neck);
     //auto node_neck = std::make_shared<NeckController>();
     //rclcpp::spin(node_neck);
