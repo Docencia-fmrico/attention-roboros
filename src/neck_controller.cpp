@@ -124,7 +124,7 @@ public:
       message.points[0].velocities[1] = 0.1;
       message.points[0].accelerations[0] = 0.1;
       message.points[0].accelerations[1] = 0.1;
-      message.points[0].time_from_start = rclcpp::Duration(1s);
+      message.points[0].time_from_start = rclcpp::Duration(5s);
       RCLCPP_INFO(get_logger(), "Publishing [.]" );
       publisher_->publish(message);        
     }
