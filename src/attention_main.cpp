@@ -20,9 +20,8 @@ int main(int argc, char ** argv)
     node->add_edge("Pepe","Andres","int","33");
     node->add_edge("Andres","Pepe","int","44");
     node->add_edge("Pepe","Andres","int","55");
-    int ana= node->get_value_from_edge();
+    node->print_graph();
 
-    RCLCPP_INFO(node->get_logger(), "%d \n",ana );
     //rclcpp::spin(node_neck);
     //auto node_neck = std::make_shared<NeckController>();
     //rclcpp::spin(node_neck);

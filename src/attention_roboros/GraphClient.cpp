@@ -67,17 +67,27 @@ class GraphClient : public rclcpp::Node
 
 
         //std::string source,std::string target,std::string
-        int get_value_from_edge(){
+        void print_graph(){
+            RCLCPP_INFO(this->get_logger(), "-----------NODES----------  \n");
+            std::vector<ros2_knowledge_graph_msgs::msg::Node>nodes_vector =graph_->get_nodes();
+
+            for(auto V : nodes_vector){
+
+                RCLCPP_INFO(this->get_logger(), "%s-%s \n",(V.node_name).c_str(),(V.node_class).c_str());
+            }
+
+            RCLCPP_INFO(this->get_logger(), "-----------EDGES----------  \n");
             std::vector<ros2_knowledge_graph_msgs::msg::Edge> edges_vector=graph_->get_edges();
             
             for(auto V : edges_vector){
                 int num = (ros2_knowledge_graph::get_content<int>(V.content)).value();
-                RCLCPP_INFO(this->get_logger(), "%d \n",num );
+
+                RCLCPP_INFO(this->get_logger(), "%s-%s %d  \n",(V.source_node_id).c_str(),(V.target_node_id).c_str(),num );
             }
             
-            
-            return 1;
         }
+
+
 
     
 
