@@ -11,6 +11,7 @@ find_package(trajectory_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(gazebo_msgs REQUIRED)
 
+
 set(CMAKE_CXX_STANDARD 17)
 
 set(dependencies
@@ -25,6 +26,10 @@ set(dependencies
 
 add_executable(get_gazebo src/gazebo_subscriber.cpp)
 ament_target_dependencies(get_gazebo ${dependencies})
+)
+
+add_executable(move_head src/move_head.cpp)
+ament_target_dependencies(move_head ${dependencies})
 
 
 
@@ -33,6 +38,7 @@ install(DIRECTORY DESTINATION share/${PROJECT_NAME})
 
 install(TARGETS
   get_gazebo
+move_head
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
