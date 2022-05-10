@@ -8,7 +8,7 @@
 int main(int argc, char ** argv)
 {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<GraphClient>();
+    /*auto node = std::make_shared<GraphClient>();
     node->create_graf();
 
     //RCLCPP_INFO(node->get_logger(), "Hola" );
@@ -17,11 +17,11 @@ int main(int argc, char ** argv)
     node->add_node("Andres","Mesa");
     node->add_node("Robot","Object");
     node->add_node("Botella","Object");
-    /*node->add_edge("Pepe","Andres","int","11");
+    node->add_edge("Pepe","Andres","int","11");
     node->add_edge("Andres","Pepe","int","22");
     node->add_edge("Pepe","Andres","int","33");
     node->add_edge("Andres","Pepe","int","44");
-    node->add_edge("Pepe","Andres","int","55");*/
+    node->add_edge("Pepe","Andres","int","55");
 
     node->remove_node("Pepe");
 
@@ -32,10 +32,9 @@ int main(int argc, char ** argv)
     node->print_graph();
     //vectornode->get_booleans();
     RCLCPP_INFO(node->get_logger(), std::to_string(numero));
-
-    //rclcpp::spin(node_neck);
     //auto node_neck = std::make_shared<NeckController>();
-    rclcpp::spin(node);
+    rclcpp::spin(node);*/
+    
     rclcpp::shutdown();
     return 0;
 }

@@ -13,6 +13,7 @@ find_package(ros2_knowledge_graph REQUIRED)
 find_package(ros2_knowledge_graph_msgs REQUIRED)
 find_package(ros2_knowledge_graph_terminal REQUIRED)
 find_package(gazebo_msgs REQUIRED)
+find_package(OpenCV REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -28,6 +29,8 @@ set(dependencies
     ros2_knowledge_graph_terminal
 
     gazebo_msgs
+
+    OpenCV
 )
 
 add_executable(move_head src/move_head.cpp)

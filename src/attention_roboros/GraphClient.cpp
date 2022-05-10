@@ -14,18 +14,18 @@
 
 #include "ros2_knowledge_graph/GraphNode.hpp"
 
-class GraphClient : public rclcpp::Node
+class GraphClient //: public rclcpp::Node
 {
 
     public:
-        GraphClient()  : Node("graph_client") {
-            //auto node = rclcpp::Node::make_shared("simple");
-            //graph_= std::make_shared<ros2_knowledge_graph::GraphNode>(node);
+        GraphClient(){  //: Node("graph_client") {
+            auto node = rclcpp::Node::make_shared("simple");
+            graph_= std::make_shared<ros2_knowledge_graph::GraphNode>(node);
         }
-
+        /*
         void create_graf(){
             graph_= std::make_shared<ros2_knowledge_graph::GraphNode>(shared_from_this());
-        }
+        }*/
 
         void add_node(std::string name,std::string type){
 
@@ -67,15 +67,15 @@ class GraphClient : public rclcpp::Node
 
 
         void print_graph(){
-            RCLCPP_INFO(this->get_logger(), "-----------NODES----------  \n");
+            //RCLCPP_INFO(this->get_logger(), "-----------NODES----------  \n");
             std::vector<ros2_knowledge_graph_msgs::msg::Node>nodes_vector =graph_->get_nodes();
 
             for(auto V : nodes_vector){
 
-                RCLCPP_INFO(this->get_logger(), "%s-%s \n",(V.node_name).c_str(),(V.node_class).c_str());
+                //RCLCPP_INFO(this->get_logger(), "%s-%s \n",(V.node_name).c_str(),(V.node_class).c_str());
             }
 
-            RCLCPP_INFO(this->get_logger(), "-----------EDGES----------  \n");
+            //RCLCPP_INFO(this->get_logger(), "-----------EDGES----------  \n");
             std::vector<ros2_knowledge_graph_msgs::msg::Edge> edges_vector=graph_->get_edges();
             
             /*for(auto V : edges_vector){
@@ -87,7 +87,7 @@ class GraphClient : public rclcpp::Node
             for(auto V : edges_vector){
                 bool num = (ros2_knowledge_graph::get_content<bool>(V.content)).value_or(0);
 
-                RCLCPP_INFO(this->get_logger(), "%s-%s %d  \n",(V.source_node_id).c_str(),(V.target_node_id).c_str(),num );
+                //RCLCPP_INFO(this->get_logger(), "%s-%s %d  \n",(V.source_node_id).c_str(),(V.target_node_id).c_str(),num );
             }
             
         }
