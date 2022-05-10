@@ -29,6 +29,8 @@
 #include <tf2_ros/transform_listener.h>
 #include "gazebo_msgs/msg/model_states.hpp"
 #include <opencv2/opencv.hpp>
+#include "attention_roboros/GraphClient.cpp"
+
 
 using namespace std::chrono_literals;
 using std::placeholders::_1;
@@ -43,8 +45,8 @@ public:
   {
     publisher_ = create_publisher<trajectory_msgs::msg::JointTrajectory>(
       "/head_controller/joint_trajectory", 10);
-    //graph_ = std::make_shared<ros2_knowledge_graph::GraphNode>("neck_controller");
-    //graph_->start();  
+    graph_ = std::make_shared<GraphClient>();
+    //graph_->create_graf();  
     subscription_ = this->create_subscription<gazebo_msgs::msg::ModelStates>(
       "/gazebo/model_states", 10, std::bind(&NeckController::topic_callback, this, _1));
   }
@@ -54,6 +56,10 @@ public:
     geometry_msgs::msg::Pose robot_pose;
     geometry_msgs::msg::Pose obj_pose;
 
+    //graph_->print_graph();
+    //graph_->update_node(node_1);
+    //std::cout << "s";
+    //return;
     int dist = 0;
     get_object("tiago", names_objects, want_see);    
     if (want_see.empty()){
@@ -178,15 +184,14 @@ private:
 
     rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr publisher_;
     rclcpp::Subscription<gazebo_msgs::msg::ModelStates>::SharedPtr subscription_;
-    //std::shared_ptr<ros2_knowledge_graph::GraphNode> graph_;        
-    std::shared_ptr<tf2_ros::TransformListener> transform_listener_{nullptr};
-    std::unique_ptr<tf2_ros::Buffer> tf_buffer_;    
+    std::shared_ptr<GraphClient> graph_;           
 };
 
 int main(int argc, char* argv[]){
     rclcpp::init(argc, argv);
 
     auto node = std::make_shared<NeckController>();
+    //node->create_graf();
     rclcpp::Rate loop_rate(500ms);
     while(rclcpp::ok()){
         node->doWork();

@@ -16,6 +16,7 @@
   <depend>trajectory_msgs</depend>
   <depend>std_msgs</depend>
   <depend>gazebo_msgs</depend>
+  <depend>ros2_knowledge_graph</depend>
 
 
   <exec_depend>plansys2_bringup</exec_depend>
