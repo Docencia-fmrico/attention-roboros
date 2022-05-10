@@ -21,6 +21,7 @@
 #include <tf2_ros/transform_listener.h>
 using namespace std::chrono_literals;
 
+
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
@@ -37,6 +38,7 @@ int main(int argc, char * argv[])
   trajectory_msgs::msg::JointTrajectory message;
 
   message.header.frame_id = "base_link";
+
   std_msgs::msg::Float64 m;
   message.header.stamp = node->now();
   message.joint_names = {"head_1_joint", "head_2_joint"};
@@ -46,24 +48,19 @@ int main(int argc, char * argv[])
   message.points[0].velocities.resize(2);
   message.points[0].positions[0] = 0.5;
   message.points[0].positions[1] = 0.5;
+
   message.points[0].velocities[0] = 0.1;
   message.points[0].velocities[1] = 0.1;
   message.points[0].accelerations[0] = 0.1;
   message.points[0].accelerations[1] = 0.1;
   message.points[0].time_from_start = rclcpp::Duration(3s);
 
-
   while (rclcpp::ok()) {
-    
-    RCLCPP_INFO(node->get_logger(), "Publishing []" );
-
+    RCLCPP_INFO(node->get_logger(), "Publishing []");
     publisher->publish(message);
-
     rclcpp::spin_some(node);
     loop_rate.sleep();
   }
-    
   rclcpp::shutdown();
-
   return 0;
 }
